@@ -49,12 +49,6 @@ public class GameController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void TicTacToeButton(int spaceNumber)
     {
         xButton.interactable = false;
@@ -90,8 +84,11 @@ public class GameController : MonoBehaviour
 
     void tie()
     {
-        winningPannel.SetActive(true);
-        winningText.text = "It's A Tie!";
+        if (!winningPannel.activeSelf)
+        {
+            winningPannel.SetActive(true);
+            winningText.text = "It's A Tie!";
+        }
     }
 
     void checkWinner()
@@ -104,7 +101,7 @@ public class GameController : MonoBehaviour
         int s6 = markedSpace[2] + markedSpace[5] + markedSpace[8];
         int s7 = markedSpace[0] + markedSpace[4] + markedSpace[8];
         int s8 = markedSpace[2] + markedSpace[4] + markedSpace[6];
-        int[] solutions = {s1, s2, s3, s4, s5, s6, s7, s8 };
+        int[] solutions = { s1, s2, s3, s4, s5, s6, s7, s8 };
         for (int i = 0; i < solutions.Length; i++)
         {
             if (solutions[i] == -3 || solutions[i] == 3)
