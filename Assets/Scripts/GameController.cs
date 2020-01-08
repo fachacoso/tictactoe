@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour
     public Sprite[] playerIcons;  // 0 = X icon, 1 = O icon
     public Button[] tictactoeSpaces; // playable space for game
     public int[] markedSpace; // place piece for each space
+    public GameObject[] winningLines;
+    public Text winningText;
+    public GameObject winningPannel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +26,7 @@ public class GameController : MonoBehaviour
     {
         whoseTurn = 0;
         turnCount = 0;
+        winningPannel.SetActive(false);
         turnIcons[0].SetActive(true);
         turnIcons[1].SetActive(false);
         for (int i = 0; i < tictactoeSpaces.Length; i++)
@@ -32,6 +37,10 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < markedSpace.Length; i++)
         {
             markedSpace[i] = 0;
+        }
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
         }
     }
 
@@ -50,12 +59,14 @@ public class GameController : MonoBehaviour
         {
             case 0:
                 markedSpace[spaceNumber] = -1;
+                checkWinner();
                 whoseTurn = 1;
                 turnIcons[1].SetActive(true);
                 turnIcons[0].SetActive(false);
                 break;
             case 1:
                 markedSpace[spaceNumber] = 1;
+                checkWinner();
                 whoseTurn = 0;
                 turnIcons[0].SetActive(true);
                 turnIcons[1].SetActive(false);
@@ -65,10 +76,11 @@ public class GameController : MonoBehaviour
                 break;
 
         }
+        turnCount++;
 
     }
 
-    void checkWinner()
+    public void checkWinner()
     {
         int s1 = markedSpace[0] + markedSpace[1] + markedSpace[2];
         int s2 = markedSpace[3] + markedSpace[4] + markedSpace[5];
@@ -81,10 +93,21 @@ public class GameController : MonoBehaviour
         int[] solutions = {s1, s2, s3, s4, s5, s6, s7, s8 };
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (i == -3 || i == 3)
-                Debug.Log("Player " + whoseTurn + " won!");
-
+            if (solutions[i] == -3 || solutions[i] == 3)
+            {
+                displayWinner(i);
+                break;
+            }
         }
+    }
 
+    void displayWinner(int solutionNumber)
+    {
+        winningPannel.SetActive(true);
+        winningLines[solutionNumber].SetActive(true);
+        if (whoseTurn == 0)
+            winningText.text = "Player X Wins!";
+        else
+            winningText.text = "Player O Wins!";
     }
 }

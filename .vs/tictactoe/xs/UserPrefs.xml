@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{119DDC31-54D8-B282-0ABE-F2051576B58D}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="109" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,16 +15,11 @@
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="tictactoe" expanded="True" selected="True" />
-        </State>
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="f68a3620-e69e-42e3-b33e-d13503d80c46" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4833bfc9-a0a0-4d4a-a13c-e38afcf482bb" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
