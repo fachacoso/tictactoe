@@ -12,6 +12,13 @@ public class GameController : MonoBehaviour
     public Sprite[] playerIcons;  // 0 = X icon, 1 = O icon
     public Button[] tictactoeSpaces; // playable space for game
     public int[] markedSpace; // place piece for each space
+    public GameObject[] winningLines;
+    public Text winningText;
+    public GameObject winningPannel;
+    public Button xButton, oButton;
+    public int xScore, oScore;
+    public Text xScoreText, oScoreText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +31,8 @@ public class GameController : MonoBehaviour
         turnCount = 0;
         turnIcons[0].SetActive(true);
         turnIcons[1].SetActive(false);
+        xButton.interactable = true;
+        oButton.interactable = true;
         for (int i = 0; i < tictactoeSpaces.Length; i++)
         {
             tictactoeSpaces[i].interactable = true;
@@ -33,6 +42,11 @@ public class GameController : MonoBehaviour
         {
             markedSpace[i] = 0;
         }
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
+        }
+
     }
 
     // Update is called once per frame
@@ -43,6 +57,8 @@ public class GameController : MonoBehaviour
 
     public void TicTacToeButton(int spaceNumber)
     {
+        xButton.interactable = false;
+        oButton.interactable = false;
         tictactoeSpaces[spaceNumber].image.sprite = playerIcons[whoseTurn];
         tictactoeSpaces[spaceNumber].interactable = false;
 
@@ -50,12 +66,14 @@ public class GameController : MonoBehaviour
         {
             case 0:
                 markedSpace[spaceNumber] = -1;
+                checkWinner();
                 whoseTurn = 1;
                 turnIcons[1].SetActive(true);
                 turnIcons[0].SetActive(false);
                 break;
             case 1:
                 markedSpace[spaceNumber] = 1;
+                checkWinner();
                 whoseTurn = 0;
                 turnIcons[0].SetActive(true);
                 turnIcons[1].SetActive(false);
@@ -65,7 +83,15 @@ public class GameController : MonoBehaviour
                 break;
 
         }
+        turnCount++;
+        if (turnCount == 9)
+            tie();
+    }
 
+    void tie()
+    {
+        winningPannel.SetActive(true);
+        winningText.text = "It's A Tie!";
     }
 
     void checkWinner()
@@ -81,9 +107,64 @@ public class GameController : MonoBehaviour
         int[] solutions = {s1, s2, s3, s4, s5, s6, s7, s8 };
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (i == -3 || i == 3)
-                Debug.Log("Player " + whoseTurn + " won!");
+            if (solutions[i] == -3 || solutions[i] == 3)
+            {
+                displayWinner(i);
+                break;
+            }
+        }
+    }
 
+    void displayWinner(int solutionNumber)
+    {
+        winningPannel.SetActive(true);
+        winningLines[solutionNumber].SetActive(true);
+        if (whoseTurn == 0)
+        {
+            xScore++;
+            xScoreText.text = xScore.ToString();
+            winningText.text = "Player X Wins!";
+        }
+        else
+        {
+            oScore++;
+            oScoreText.text = oScore.ToString();
+            winningText.text = "Player O Wins!";
+        }
+    }
+
+    public void rematch()
+    {
+        GameSetup();
+        winningPannel.SetActive(false);
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
+        }
+    }
+
+    public void restart()
+    {
+        rematch();
+        xScore = 0;
+        xScoreText.text = xScore.ToString();
+        oScore = 0;
+        oScoreText.text = oScore.ToString();
+    }
+
+    public void switchPlayer(int player)
+    {
+        if (player == 0)
+        {
+            whoseTurn = 0;
+            turnIcons[0].SetActive(true);
+            turnIcons[1].SetActive(false);
+        }
+        else
+        {
+            whoseTurn = 1;
+            turnIcons[1].SetActive(true);
+            turnIcons[0].SetActive(false);
         }
 
     }
