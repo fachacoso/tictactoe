@@ -38,21 +38,18 @@ public class AudioController : MonoBehaviour
     public void setMasterVolume(float volume)
     {
         audioMixer.SetFloat("master", volume);
-        PlayerPrefs.DeleteKey("master");
         PlayerPrefs.SetFloat("master", volume);
     }
 
     public void setBgVolume(float volume)
     {
         audioMixer.SetFloat("bg", volume);
-        PlayerPrefs.DeleteKey("bg");
         PlayerPrefs.SetFloat("bg", volume);
     }
 
     public void setSfxVolume(float volume)
     {
         audioMixer.SetFloat("sfx", volume);
-        PlayerPrefs.DeleteKey("sfx");
         PlayerPrefs.SetFloat("sfx", volume);
     }
 

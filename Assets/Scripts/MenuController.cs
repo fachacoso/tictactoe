@@ -14,6 +14,7 @@ public class MenuController : MonoBehaviour
 
     public void quit()
     {
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 }
