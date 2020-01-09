@@ -1,15 +1,12 @@
 ﻿<Properties StartupConfiguration="{119DDC31-54D8-B282-0ABE-F2051576B58D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
-    <Files>
-      <File FileName="Assets/Scripts/GameController.cs" Line="66" Column="27" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="tictactoe" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="GameController.cs" selected="True" />
+                <Node name="AudioController.cs" selected="True" />
               </Node>
             </Node>
           </Node>
