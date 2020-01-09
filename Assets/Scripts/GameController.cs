@@ -19,10 +19,6 @@ public class GameController : MonoBehaviour
     public Button xButton, oButton;
     public int xScore, oScore;
     public Text xScoreText, oScoreText;
-    public Button optionsButton;
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -171,8 +167,8 @@ public class GameController : MonoBehaviour
 
     }
 
-    void options()
+    public void mainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 }
