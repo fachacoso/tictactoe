@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class GameController : MonoBehaviour
     public Button xButton, oButton;
     public int xScore, oScore;
     public Text xScoreText, oScoreText;
-   
+    public Button optionsButton;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -165,5 +169,10 @@ public class GameController : MonoBehaviour
             turnIcons[0].SetActive(false);
         }
 
+    }
+
+    void options()
+    {
+        SceneManager.LoadScene(2);
     }
 }

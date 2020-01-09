@@ -1,5 +1,11 @@
 ﻿<Properties StartupConfiguration="{119DDC31-54D8-B282-0ABE-F2051576B58D}|">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AudioController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MenuController.cs" Line="19" Column="2" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="176" Column="35" />
+      <File FileName="Assets/bgMusicLoop.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/AudioController.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -16,7 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="eb744635-958b-4865-968a-674957b9b208" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4c5c3885-c712-45c8-b963-e21cdf8ecafa" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
