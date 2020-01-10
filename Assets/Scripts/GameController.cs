@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public int whoseTurn; // 0 = X, 1 = O
+    public int whoseTurn; // -1 = X, 1 = O
     public int turnCount; // num of turns
     public GameObject[] turnIcons; //display whose turn it is
     public Sprite[] playerIcons;  // 0 = X icon, 1 = O icon
@@ -23,15 +23,15 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        turnIcons[0].SetActive(true);
+        turnIcons[1].SetActive(false);
         GameSetup();
     }
 
     void GameSetup()
     {
-        whoseTurn = 0;
+        whoseTurn = PlayerPrefs.GetInt("whoStarts", -1);
         turnCount = 0;
-        turnIcons[0].SetActive(true);
-        turnIcons[1].SetActive(false);
         xButton.interactable = true;
         oButton.interactable = true;
         for (int i = 0; i < tictactoeSpaces.Length; i++)
@@ -54,24 +54,19 @@ public class GameController : MonoBehaviour
     {
         xButton.interactable = false;
         oButton.interactable = false;
-        tictactoeSpaces[spaceNumber].image.sprite = playerIcons[whoseTurn];
         tictactoeSpaces[spaceNumber].interactable = false;
 
         switch (whoseTurn)
         {
-            case 0:
+            case -1:
+                tictactoeSpaces[spaceNumber].image.sprite = playerIcons[0];
                 markedSpace[spaceNumber] = -1;
-                checkWinner();
-                whoseTurn = 1;
-                turnIcons[1].SetActive(true);
-                turnIcons[0].SetActive(false);
+                switchPlayer(1);
                 break;
             case 1:
+                tictactoeSpaces[spaceNumber].image.sprite = playerIcons[1];
                 markedSpace[spaceNumber] = 1;
-                checkWinner();
-                whoseTurn = 0;
-                turnIcons[0].SetActive(true);
-                turnIcons[1].SetActive(false);
+                switchPlayer(-1);
                 break;
             default:
                 Console.WriteLine("Default case");
@@ -92,7 +87,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void checkWinner()
+    int checkWinner()
     {
         int s1 = markedSpace[0] + markedSpace[1] + markedSpace[2];
         int s2 = markedSpace[3] + markedSpace[4] + markedSpace[5];
@@ -108,16 +103,17 @@ public class GameController : MonoBehaviour
             if (solutions[i] == -3 || solutions[i] == 3)
             {
                 displayWinner(i);
-                break;
+                return whoseTurn;
             }
         }
+        return 0;
     }
 
     void displayWinner(int solutionNumber)
     {
         winningPannel.SetActive(true);
         winningLines[solutionNumber].SetActive(true);
-        if (whoseTurn == 0)
+        if (whoseTurn == -1)
         {
             xScore++;
             xScoreText.text = xScore.ToString();
@@ -152,15 +148,21 @@ public class GameController : MonoBehaviour
 
     public void switchPlayer(int player)
     {
-        if (player == 0)
+        if (checkWinner() != 0)
         {
-            whoseTurn = 0;
+            return;
+        }
+        if (player == -1)
+        {
+            whoseTurn = -1;
+            PlayerPrefs.SetInt("whoStarts", -1);
             turnIcons[0].SetActive(true);
             turnIcons[1].SetActive(false);
         }
         else
         {
             whoseTurn = 1;
+            PlayerPrefs.SetInt("whoStarts", 1);
             turnIcons[1].SetActive(true);
             turnIcons[0].SetActive(false);
         }
