@@ -9,13 +9,9 @@ public class AI
 
     public static int Easy(int[] board)
     {
-        List<int> list = new List<int>();
-        for (int i = 0; i < board.Length; i++)
-        {
-            if (board[i] != 0)
-                list.Add(i);
-        }
-        return random.Next(list.Count);
+        List<int> legalMoves = legalMoveList(board);
+        int randomMove = legalMoves[random.Next(legalMoves.Count)];
+        return randomMove;
     }
 
     public int Impossible(int[] board, int whoseTurn)
@@ -28,21 +24,16 @@ public class AI
 
 
 
-    Tuple<int, int> Minimize(int[] board, int alpha, int beta, int depth)
+    private static Tuple<int, int> Minimize(int[] board, int alpha, int beta, int depth)
     {
+        List<int> legalMoves = legalMoveList(board);
 
-        List<int> openSpots = new List<int>();
-        for (int i = 0; i < board.Length; i++)
-        {
-            if (board[i] == 0)
-                openSpots.Add(i);
-        }
         int bestMoveSoFar = 0;
         int bestScoreSoFar = int.MaxValue;
 
-        if (depth == 0 || openSpots.Count == 0)
+        if (depth == 0 || legalMoves.Count == 0)
         {
-            for (int i = 0; i < openSpots.Count; i++)
+            for (int i = 0; i < legalMoves.Count; i++)
             {
                 int[] possibleBoard = board;
                 possibleBoard[i] = -1;
@@ -59,7 +50,7 @@ public class AI
         }
         else
         {
-            for (int i = 0; i < openSpots.Count; i++)
+            for (int i = 0; i < legalMoves.Count; i++)
             {
                 int[] possibleBoard = board;
                 possibleBoard[i] = -1;
@@ -77,21 +68,17 @@ public class AI
         return new Tuple<int, int>(bestMoveSoFar, bestScoreSoFar);
     }
 
-    Tuple<int, int> Maximize(int[] board, int alpha, int beta, int depth)
+    private static Tuple<int, int> Maximize(int[] board, int alpha, int beta, int depth)
     {
 
-        List<int> openSpots = new List<int>();
-        for (int i = 0; i < board.Length; i++)
-        {
-            if (board[i] == 0)
-                openSpots.Add(i);
-        }
+        List<int> legalMoves = legalMoveList(board);
+
         int bestMoveSoFar = 0;
         int bestScoreSoFar = int.MinValue;
 
-        if (depth == 0 || openSpots.Count == 0)
+        if (depth == 0 || legalMoves.Count == 0)
         {
-            for (int i = 0; i < openSpots.Count; i++)
+            for (int i = 0; i < legalMoves.Count; i++)
             {
                 int[] possibleBoard = board;
                 possibleBoard[i] = 1;
@@ -108,7 +95,7 @@ public class AI
         }
         else
         {
-            for (int i = 0; i < openSpots.Count; i++)
+            for (int i = 0; i < legalMoves.Count; i++)
             {
                 int[] possibleBoard = board;
                 possibleBoard[i] = 1;
@@ -126,8 +113,19 @@ public class AI
         return new Tuple<int, int>(bestMoveSoFar, bestScoreSoFar);
     }
 
+    private static List<int> legalMoveList(int[] board)
+    {
+        List<int> openSpots = new List<int>();
+        for (int i = 0; i < board.Length; i++)
+        {
+            if (board[i] == 0)
+                openSpots.Add(i);
+        }
+        return openSpots;
+    }
 
-    public int heuristic(int[] board)
+
+    private static int heuristic(int[] board)
     {
         int score = 0;
         int s1 = board[0] + board[1] + board[2];

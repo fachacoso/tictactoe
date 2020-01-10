@@ -6667,7 +6667,7 @@ MonoBehaviour:
   oScore: 0
   xScoreText: {fileID: 1847238047}
   oScoreText: {fileID: 1681421229}
-  isAI: 0000
+  isAI: 0001
 --- !u!4 &1707810675
 Transform:
   m_ObjectHideFlags: 0
