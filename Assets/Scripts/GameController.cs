@@ -7,30 +7,31 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public int whoseTurn; // -1 = X, 1 = O
+    public int whoseTurn; // 0 = X, 1 = O
     public int turnCount; // num of turns
     public GameObject[] turnIcons; //display whose turn it is
     public Sprite[] playerIcons;  // 0 = X icon, 1 = O icon
     public Button[] tictactoeSpaces; // playable space for game
-    public int[] markedSpace; // place piece for each space
+    public int[] board;// place piece for each space
     public GameObject[] winningLines;
     public Text winningText;
     public GameObject winningPannel;
     public Button xButton, oButton;
     public int xScore, oScore;
     public Text xScoreText, oScoreText;
+    public Boolean[] isAI;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        turnIcons[0].SetActive(true);
-        turnIcons[1].SetActive(false);
         GameSetup();
     }
 
     void GameSetup()
     {
-        whoseTurn = PlayerPrefs.GetInt("whoStarts", -1);
+        whoseTurn = PlayerPrefs.GetInt("whoStarts", 0);
+        setCurrent(whoseTurn);
         turnCount = 0;
         xButton.interactable = true;
         oButton.interactable = true;
@@ -39,15 +40,10 @@ public class GameController : MonoBehaviour
             tictactoeSpaces[i].interactable = true;
             tictactoeSpaces[i].GetComponent<Image>().sprite = null;
         }
-        for (int i = 0; i < markedSpace.Length; i++)
+        for (int i = 0; i < board.Length; i++)
         {
-            markedSpace[i] = 0;
+            board[i] = 0;
         }
-        for (int i = 0; i < winningLines.Length; i++)
-        {
-            winningLines[i].SetActive(false);
-        }
-
     }
 
     public void TicTacToeButton(int spaceNumber)
@@ -58,24 +54,37 @@ public class GameController : MonoBehaviour
 
         switch (whoseTurn)
         {
-            case -1:
+            case 0:
                 tictactoeSpaces[spaceNumber].image.sprite = playerIcons[0];
-                markedSpace[spaceNumber] = -1;
-                switchPlayer(1);
+                board[spaceNumber] = -1;
+                if (checkWinner())
+                    return;
+                setCurrent(1);
                 break;
             case 1:
                 tictactoeSpaces[spaceNumber].image.sprite = playerIcons[1];
-                markedSpace[spaceNumber] = 1;
-                switchPlayer(-1);
+                board[spaceNumber] = 1;
+                if (checkWinner())
+                    return;
+                setCurrent(0);
                 break;
             default:
                 Console.WriteLine("Default case");
                 break;
 
         }
+
         turnCount++;
+
         if (turnCount == 9)
+        {
             tie();
+            return;
+        }
+
+        if (isAI[whoseTurn])
+            TicTacToeButton(AI.Easy(board));
+
     }
 
     void tie()
@@ -87,33 +96,33 @@ public class GameController : MonoBehaviour
         }
     }
 
-    int checkWinner()
+    Boolean checkWinner()
     {
-        int s1 = markedSpace[0] + markedSpace[1] + markedSpace[2];
-        int s2 = markedSpace[3] + markedSpace[4] + markedSpace[5];
-        int s3 = markedSpace[6] + markedSpace[7] + markedSpace[8];
-        int s4 = markedSpace[0] + markedSpace[3] + markedSpace[6];
-        int s5 = markedSpace[1] + markedSpace[4] + markedSpace[7];
-        int s6 = markedSpace[2] + markedSpace[5] + markedSpace[8];
-        int s7 = markedSpace[0] + markedSpace[4] + markedSpace[8];
-        int s8 = markedSpace[2] + markedSpace[4] + markedSpace[6];
+        int s1 = board[0] + board[1] + board[2];
+        int s2 = board[3] + board[4] + board[5];
+        int s3 = board[6] + board[7] + board[8];
+        int s4 = board[0] + board[3] + board[6];
+        int s5 = board[1] + board[4] + board[7];
+        int s6 = board[2] + board[5] + board[8];
+        int s7 = board[0] + board[4] + board[8];
+        int s8 = board[2] + board[4] + board[6];
         int[] solutions = { s1, s2, s3, s4, s5, s6, s7, s8 };
         for (int i = 0; i < solutions.Length; i++)
         {
             if (solutions[i] == -3 || solutions[i] == 3)
             {
                 displayWinner(i);
-                return whoseTurn;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     void displayWinner(int solutionNumber)
     {
         winningPannel.SetActive(true);
         winningLines[solutionNumber].SetActive(true);
-        if (whoseTurn == -1)
+        if (whoseTurn == 0)
         {
             xScore++;
             xScoreText.text = xScore.ToString();
@@ -135,6 +144,10 @@ public class GameController : MonoBehaviour
         {
             winningLines[i].SetActive(false);
         }
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
+        }
     }
 
     public void restart()
@@ -146,25 +159,33 @@ public class GameController : MonoBehaviour
         oScoreText.text = oScore.ToString();
     }
 
-    public void switchPlayer(int player)
+    public void setCurrent(int player)
     {
-        if (checkWinner() != 0)
+        if (player == 0)
         {
-            return;
-        }
-        if (player == -1)
-        {
-            whoseTurn = -1;
-            PlayerPrefs.SetInt("whoStarts", -1);
+            whoseTurn = 0;
             turnIcons[0].SetActive(true);
             turnIcons[1].SetActive(false);
         }
         else
         {
             whoseTurn = 1;
-            PlayerPrefs.SetInt("whoStarts", 1);
             turnIcons[1].SetActive(true);
             turnIcons[0].SetActive(false);
+        }
+
+    }
+
+    public void setFirst(int player)
+    {
+        setCurrent(player);
+        if (player == 0)
+        {
+            PlayerPrefs.SetInt("whoStarts", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("whoStarts", 1);
         }
 
     }
