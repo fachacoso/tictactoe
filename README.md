@@ -4,9 +4,22 @@ The classic game of Tic-Tac-Toe where you can play with your friend or a compute
 This project was created in Unity and scripts were created in C#.
 
 ## Table of contents
+* [Gameplay](#gameplay)
 * [Features](#features)
 * [Credit](#credit)
 * [Afterthoughts](#afterthoughts)
+
+## Gameplay
+<p float="left">
+  <img src="README-images/mainMenu.png" height="150" />
+  <img src="README-images/opponent.png" height="150" /> 
+  <img src="README-images/options.png" height="150" />
+</p>
+<p float="left">
+  <img src="README-images/game.png" height="150" />
+  <img src="README-images/tie.png" height="150" /> 
+  <img src="README-images/winner.png" height="150" />
+</p>
 
 ## Features
 The project was originally going to stop after I made a working game, but I thought why not add some more?
@@ -57,3 +70,5 @@ The MinMax Algorithm with Alpha-Beta Pruning code was heavily inspired by code I
 
 ## Afterthoughts
 This project was a great introduction to C#, Unity, and game developing in general!  Now that I finished my project, I realize not only how doable making a game is, but how hard it is! For such a simple game like tic-tac-toe took a bunch of days creating and improving.  I definitely wish I planned all the features I was going to add beforehand so I wouldn't have had to constantly go back and change things.  And to think this is a game with no movement.  After watching tons of videos on Unity and game developing, especially when I got distracted watching how to create Flappy Bird and parallax effect backgrounds, I definitely want to learn and make some more!
+
+Also I'll definitely use branches next time!
