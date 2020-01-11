@@ -26,7 +26,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GameSetup();
-        InvokeRepeating("checkAI", 0, 1);
+        if (PlayerPrefs.GetInt("ai") != 0)
+            InvokeRepeating("checkAI", 0, 1);
     }
 
     void GameSetup()
@@ -210,7 +211,15 @@ public class GameController : MonoBehaviour
     {
         if (!gameOver() && isAI[whoseTurn])
         {
-            int aiMove = AI.Impossible(board, whoseTurn);
+            int aiMove;
+            if (PlayerPrefs.GetInt("ai") == 1)
+            {
+                aiMove = AI.Easy(board);
+            }
+            else
+            {
+                aiMove = AI.Impossible(board, whoseTurn);
+            }
             TicTacToeButton(aiMove);
         }
     }

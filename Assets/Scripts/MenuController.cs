@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
 
-    public void play()
+    public void play(int who)
     {
+        PlayerPrefs.SetInt("ai", who);
         SceneManager.LoadScene(1);
     }
 
