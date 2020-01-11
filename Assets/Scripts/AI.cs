@@ -14,9 +14,9 @@ public class AI
         return randomMove;
     }
 
-    public int Impossible(int[] board, int whoseTurn)
+    public static int Impossible(int[] board, int whoseTurn)
      {
-        if (whoseTurn == -1)
+        if (whoseTurn == 0)
             return Minimize(board, int.MinValue, int.MaxValue, 9).Item1;
         else
             return Maximize(board, int.MinValue, int.MaxValue, 9).Item1;
@@ -28,14 +28,18 @@ public class AI
     {
         List<int> legalMoves = legalMoveList(board);
 
-        int bestMoveSoFar = 0;
+        int bestMoveSoFar = -1;
         int bestScoreSoFar = int.MaxValue;
 
-        if (depth == 0 || legalMoves.Count == 0)
+        if (legalMoves.Count == 0)
         {
-            for (int i = 0; i < legalMoves.Count; i++)
+            return new Tuple<int, int>(-1, heuristic(board));
+        }
+        else if (depth == 0)
+        {
+            foreach (int i in legalMoves)
             {
-                int[] possibleBoard = board;
+                int[] possibleBoard = (int[]) board.Clone();
                 possibleBoard[i] = -1;
                 int possibleScore = heuristic(possibleBoard);
                 if (possibleScore <= bestScoreSoFar)
@@ -50,9 +54,9 @@ public class AI
         }
         else
         {
-            for (int i = 0; i < legalMoves.Count; i++)
+            foreach (int i in legalMoves)
             {
-                int[] possibleBoard = board;
+                int[] possibleBoard = (int[])board.Clone();
                 possibleBoard[i] = -1;
                 Tuple<int, int> possibleMove = Maximize(possibleBoard, alpha, beta, depth - 1);
                 if (possibleMove.Item2 <= bestScoreSoFar)
@@ -73,14 +77,18 @@ public class AI
 
         List<int> legalMoves = legalMoveList(board);
 
-        int bestMoveSoFar = 0;
+        int bestMoveSoFar = -1;
         int bestScoreSoFar = int.MinValue;
 
-        if (depth == 0 || legalMoves.Count == 0)
+        if (legalMoves.Count == 0)
         {
-            for (int i = 0; i < legalMoves.Count; i++)
+            return new Tuple<int, int>(-1, heuristic(board));
+        }
+        else if (depth == 0)
+        {
+            foreach (int i in legalMoves)
             {
-                int[] possibleBoard = board;
+                int[] possibleBoard = (int[])board.Clone();
                 possibleBoard[i] = 1;
                 int possibleScore = heuristic(possibleBoard);
                 if (possibleScore >= bestScoreSoFar)
@@ -95,13 +103,14 @@ public class AI
         }
         else
         {
-            for (int i = 0; i < legalMoves.Count; i++)
+            foreach (int i in legalMoves)
             {
-                int[] possibleBoard = board;
+                int[] possibleBoard = (int[])board.Clone();
                 possibleBoard[i] = 1;
                 Tuple<int, int> possibleMove = Minimize(possibleBoard, alpha, beta, depth - 1);
                 if (possibleMove.Item2 >= bestScoreSoFar)
                 {
+                    Debug.Log(possibleMove.Item2.ToString() + " " + bestScoreSoFar.ToString());
                     bestMoveSoFar = i;
                     bestScoreSoFar = possibleMove.Item2;
                     alpha = Math.Max(alpha, bestScoreSoFar);
@@ -148,6 +157,14 @@ public class AI
             {
                 score = int.MaxValue;
                 break;
+            }
+            else if (solutions[i] == -2)
+            {
+                score += -100;
+            }
+            else if (solutions[i] == 2)
+            {
+                score += 100;
             }
             else
             {

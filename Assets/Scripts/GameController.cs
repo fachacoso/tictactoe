@@ -210,7 +210,7 @@ public class GameController : MonoBehaviour
     {
         if (!gameOver() && isAI[whoseTurn])
         {
-            int aiMove = AI.Easy(board);
+            int aiMove = AI.Impossible(board, whoseTurn);
             TicTacToeButton(aiMove);
         }
     }
