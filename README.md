@@ -3,13 +3,19 @@
 The classic game of Tic-Tac-Toe where you can play with your friend or a computer!
 This project was created in Unity and scripts were created in C#.
 
-## Implementations
+## Table of contents
+* [Features](#features)
+* [Credit](#credit)
+* [Afterthoughts](#afterthoughts)
+
+## Features
 The project was originally going to stop after I made a working game, but I thought why not add some more?
 
 Here's a list of some of the things I created after making the basic game functionality.  At the end of this section are improvements I could make if I pick this project back up again.
 
 ### AI
-Implements a MinMax Algorithm and Alpha Beta Pruning to control AI that either wins or ties (never loses).
+- Hard(Implements a MinMax Algorithm and Alpha Beta Pruning to control AI that either wins or ties (never loses))
+- Easy(Picks random square)
 
 ### Audio
 - Background Music
@@ -47,3 +53,7 @@ The design of the menu (although very generic) was inspired by Brackey's videos.
 The background music comes from [Club Penguin OST - Coffee Shop](https://www.youtube.com/watch?v=K4eQ1avGci0&list=RDQM5kNtowCSBt8&index=14)
 ### AI(MinMax Algorithm) - [Paul N. Hilfinger](https://www2.eecs.berkeley.edu/Faculty/Homepages/hilfinger.html)
 The MinMax Algorithm with Alpha-Beta Pruning code was heavily inspired by code I wrote for one of my courses in UC Berkeley, Professor Hilfinger's CS61B
+
+
+## Afterthoughts
+This project was a great introduction to C#, Unity, and game developing in general!  Now that I finished my project, I realize not only how doable making a game is, but how hard it is! For such a simple game like tic-tac-toe took a bunch of days creating and improving.  I definitely wish I planned all the features I was going to add beforehand so I wouldn't have had to constantly go back and change things.  And to think this is a game with no movement.  After watching tons of videos on Unity and game developing, especially when I got distracted watching how to create Flappy Bird and parallax effect backgrounds, I definitely want to learn and make some more!
