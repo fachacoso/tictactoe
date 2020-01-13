@@ -12,7 +12,7 @@ A link to a playthrough can be viewed [here!](https://www.youtube.com/watch?v=vp
 * [Afterthoughts](#afterthoughts)
 
 ## Gameplay
-[Youtube link of playthrough](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
+[Youtube Link of Gameplay](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
 <p float="left">
   <img src="README-images/mainMenu.png" height="150" />
   <img src="README-images/opponent.png" height="150" /> 
@@ -54,13 +54,10 @@ If I pick up this project again, here's a list of some of the things I'd improve
   - Another intro screen
 - More SFX (victory/lose noise)
 - AI
-  - Show a waiting animation to show AI is still thinking of move (Hard AI)
+  - Allow Player X to be an AI (functionality added already)
   - AI vs AI
-  - Allow AI to start first (X) (functionality added already)
   - Add a medium difficulty
-  - Allow AI to switch midgame
-  - Hard AI takes too long to make first move (around 25 seconds, but less than one second afterwards)
-  - Player is allowed to make a move while AI is still calculating move (only a problem for the Hard AI)
+  - Player is allowed to move for the AI while AI is still calculating move
 
 ## Credit
 ### Basic Functionality - [InfoGamer](https://www.youtube.com/channel/UCyoayn_uVt2I55ZCUuBVRcQ)
