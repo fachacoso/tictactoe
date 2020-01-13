@@ -3,6 +3,8 @@
 The classic game of Tic-Tac-Toe where you can play with your friend or a computer!
 This project was created in Unity and scripts were created in C#.
 
+A link to a playthrough can be viewed [here!](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
+
 ## Table of contents
 * [Gameplay](#gameplay)
 * [Features](#features)
@@ -10,6 +12,7 @@ This project was created in Unity and scripts were created in C#.
 * [Afterthoughts](#afterthoughts)
 
 ## Gameplay
+[Youtube link of playthrough](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
 <p float="left">
   <img src="README-images/mainMenu.png" height="150" />
   <img src="README-images/opponent.png" height="150" /> 
@@ -47,6 +50,8 @@ If I pick up this project again, here's a list of some of the things I'd improve
 - Adding pictures to the README.md
 - Documentation (period)
 - Better UI (could look prettier)
+  - Scene transitions
+  - Another intro screen
 - More SFX (victory/lose noise)
 - AI
   - Show a waiting animation to show AI is still thinking of move (Hard AI)
