@@ -1,19 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class AI
+/* Creates AI move. */
+public static class AI
 {
-    static System.Random random = new System.Random();
 
+    /* AI Functions */
+
+
+    static System.Random random = new System.Random(); // used to randomize
+
+    // Easy difficulty
     public static int Easy(int[] board)
     {
-        List<int> legalMovesList = legalMoves(board);
+        List<int> legalMovesList = PossibleMoves(board);
         int randomMove = legalMovesList[random.Next((legalMovesList.Count))];
         return randomMove;
     }
 
+    // Medium difficulty
     public static int Medium(int[] board, int whoseTurn)
     {
         if (whoseTurn == 0)
@@ -22,6 +27,7 @@ public class AI
             return Maximize(board, int.MinValue, int.MaxValue, 2).Item1;
     }
 
+    // Hard difficulty
     public static int Hard(int[] board, int whoseTurn)
      {
         if (whoseTurn == 0)
@@ -32,16 +38,20 @@ public class AI
 
 
 
+    /* Minimax functions */
+
+
+    // Minimax, used to calculate player X's best move
     private static Tuple<int, int> Minimize(int[] board, int alpha, int beta, int depth)
     {
-        List<int> legalMovesList = legalMoves(board, 0);
+        List<int> legalMovesList = LegalMoves(board, 0);
 
         int bestMoveSoFar = -1;
         int bestScoreSoFar = int.MaxValue;
 
         if (legalMovesList.Count == 0)
         {
-            return new Tuple<int, int>(-1, heuristic(board));
+            return new Tuple<int, int>(-1, Heuristic(board));
         }
         else if (depth == 0)
         {
@@ -49,7 +59,7 @@ public class AI
             {
                 int[] possibleBoard = (int[]) board.Clone();
                 possibleBoard[i] = -1;
-                int possibleScore = heuristic(possibleBoard);
+                int possibleScore = Heuristic(possibleBoard);
                 if (possibleScore <= bestScoreSoFar)
                 {
                     bestMoveSoFar = i;
@@ -80,17 +90,18 @@ public class AI
         return new Tuple<int, int>(bestMoveSoFar, bestScoreSoFar);
     }
 
+    // Minimax, used to calculate player O's best move
     private static Tuple<int, int> Maximize(int[] board, int alpha, int beta, int depth)
     {
 
-        List<int> legalMovesList = legalMoves(board, 1);
+        List<int> legalMovesList = LegalMoves(board, 1);
 
         int bestMoveSoFar = -1;
         int bestScoreSoFar = int.MinValue;
 
         if (legalMovesList.Count == 0)
         {
-            return new Tuple<int, int>(-1, heuristic(board));
+            return new Tuple<int, int>(-1, Heuristic(board));
         }
         else if (depth == 0)
         {
@@ -98,7 +109,7 @@ public class AI
             {
                 int[] possibleBoard = (int[])board.Clone();
                 possibleBoard[i] = 1;
-                int possibleScore = heuristic(possibleBoard);
+                int possibleScore = Heuristic(possibleBoard);
                 if (possibleScore >= bestScoreSoFar)
                 {
                     bestMoveSoFar = i;
@@ -129,7 +140,13 @@ public class AI
         return new Tuple<int, int>(bestMoveSoFar, bestScoreSoFar);
     }
 
-    private static List<int> legalMoves(int[] board)
+
+
+    /* Helper functions */
+
+
+    // List of all open board spaces
+    private static List<int> PossibleMoves(int[] board)
     {
         List<int> openSpots = new List<int>();
         for (int i = 0; i < board.Length; i++)
@@ -140,23 +157,26 @@ public class AI
         return openSpots;
     }
 
-
-    private static List<int> legalMoves(int[] board, int whoseTurn)
+    // Gives legal moves based on 3 criteria
+    // 1. If there is a winning move, return it.  Else
+    // 2. If there is a move they need to block, return it.  Else
+    // 3. Return possible moves
+    private static List<int> LegalMoves(int[] board, int whoseTurn)
     {
         List<int> needToPlace = new List<int>();
-        List<int> openSpot = legalMoves(board);
+        List<int> openSpot = PossibleMoves(board);
 
-        SolutionLine[] solutionLines = GameController.solutionLines(board);
+        SolutionLine[] solutionLines = GameController.SolutionLines(board);
 
         if (whoseTurn == 0)
         {
             for (int i = 0; i < solutionLines.Length; i++)
             {
                 SolutionLine line = solutionLines[i];
-                if (line.sum() == -2)
-                    return new List<int> {line.winningMove()};
-                else if (line.sum() == 2)
-                    needToPlace.Add(line.winningMove());
+                if (line.Sum() == -2)
+                    return new List<int> {line.WinningMove()};
+                else if (line.Sum() == 2)
+                    needToPlace.Add(line.WinningMove());
             }
         }
         else if (whoseTurn == 1)
@@ -164,10 +184,10 @@ public class AI
             for (int i = 0; i < solutionLines.Length; i++)
             {
                 SolutionLine line = solutionLines[i];
-                if (line.sum() == 2)
-                    return new List<int> { line.winningMove() };
-                else if (line.sum() == -2)
-                    needToPlace.Add(line.winningMove());
+                if (line.Sum() == 2)
+                    return new List<int> { line.WinningMove() };
+                else if (line.Sum() == -2)
+                    needToPlace.Add(line.WinningMove());
             }
         }
         if (needToPlace.Count != 0)
@@ -176,33 +196,36 @@ public class AI
             return openSpot;
     }
 
-    private static int heuristic(int[] board)
+    // Gives a score of the board
+    // Negative --> better for Player X
+    // Positive --> better for Player O
+    private static int Heuristic(int[] board)
     {
         int score = 0;
-        SolutionLine[] solutions = GameController.solutionLines(board);
+        SolutionLine[] solutions = GameController.SolutionLines(board);
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (solutions[i].sum() == -3)
+            if (solutions[i].Sum() == -3)
             {
                 score = int.MinValue;
                 break;
             }
-            else if (solutions[i].sum() == 3)
+            else if (solutions[i].Sum() == 3)
             {
                 score = int.MaxValue;
                 break;
             }
-            else if (solutions[i].sum() == -2)
+            else if (solutions[i].Sum() == -2)
             {
                 score += -100;
             }
-            else if (solutions[i].sum() == 2)
+            else if (solutions[i].Sum() == 2)
             {
                 score += 100;
             }
             else
             {
-                score += solutions[i].sum();
+                score += solutions[i].Sum();
             }
         }
         return score;

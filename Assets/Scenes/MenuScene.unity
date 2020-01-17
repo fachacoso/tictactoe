@@ -203,7 +203,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 741708411}
-        m_MethodName: play
+        m_MethodName: Play
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -905,7 +905,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 741708411}
-        m_MethodName: play
+        m_MethodName: Play
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2771,7 +2771,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 741708411}
-        m_MethodName: play
+        m_MethodName: Play
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4203,7 +4203,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 741708411}
-        m_MethodName: play
+        m_MethodName: Play
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,17 +1,20 @@
 ﻿using System;
 
+/* Helper class used to represent each winning condition lines and their indexes */
 public class SolutionLine
 {
-    int index1;
-    int index2;
-    int index3;
+    /* Indexes */
+    int index1; // index 1
+    int index2; // index 2
+    int index3; // index 3
 
-    int[] playingBoard;
+    int[] playingBoard; // board
 
+    /* Constructor */
     public SolutionLine(int[] board, int whichLine)
     {
         playingBoard = board;
-        switch (whichLine)
+        switch (whichLine) // Case for all 8 solution lines
         {
             case 1:
                 index1 = 0;
@@ -58,12 +61,18 @@ public class SolutionLine
         }
     }
 
-    public int sum()
+
+
+    /* Functions */
+
+    // Returns sum of SolutionLine
+    public int Sum()
     {
         return playingBoard[index1] + playingBoard[index2] + playingBoard[index3];
     }
 
-    public int winningMove()
+    // Return the index in the board of the winning move
+    public int WinningMove()
     {
         if (playingBoard[index1] == 0)
             return index1;
@@ -71,17 +80,18 @@ public class SolutionLine
             return index2;
         else
             return index3;
-
     }
 
-    public Boolean hasWinner()
+    // Checks if there is a winner
+    public Boolean HasWinner()
     {
-        return sum() == -3 || sum() == 3;
+        return Sum() == -3 || Sum() == 3;
     }
 
-    public int winner()
+    // Returns who winner is
+    public int Winner()
     {
-        if (hasWinner())
+        if (HasWinner())
             return playingBoard[index1];
         return 0;
 

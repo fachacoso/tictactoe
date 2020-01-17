@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
+/* Used to loop background music. */
 public class bgMusicLoop : MonoBehaviour
 {
-    
+    // Creates background music, doesn't destroy object when new scene is loaded
     private void Awake()
     {
         GameObject[] bgMusic = GameObject.FindGameObjectsWithTag("music");
