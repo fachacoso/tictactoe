@@ -6,11 +6,6 @@
 /nostdlib+
 /preferreduilang:en-US
 /langversion:latest
-/reference:"Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
-/reference:"Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
-/reference:"Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll"
-/reference:"Library/ScriptAssemblies/Unity.TextMeshPro.dll"
-/reference:"Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -74,6 +69,11 @@
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/UnityEditor.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/Managed/Unity.Locator.dll"
+/reference:"Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
+/reference:"Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
+/reference:"Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll"
+/reference:"Library/ScriptAssemblies/Unity.TextMeshPro.dll"
+/reference:"Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 /reference:"/Applications/Unity/Hub/Editor/2018.4.14f1/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
@@ -306,6 +306,7 @@
 "Assets/Scripts/bgMusicLoop.cs"
 "Assets/Scripts/GameController.cs"
 "Assets/Scripts/MenuController.cs"
+"Assets/Scripts/SolutionLine.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"
