@@ -90,18 +90,10 @@ public class GameController : MonoBehaviour
 
     Boolean gameOver()
     {
-        int s1 = board[0] + board[1] + board[2];
-        int s2 = board[3] + board[4] + board[5];
-        int s3 = board[6] + board[7] + board[8];
-        int s4 = board[0] + board[3] + board[6];
-        int s5 = board[1] + board[4] + board[7];
-        int s6 = board[2] + board[5] + board[8];
-        int s7 = board[0] + board[4] + board[8];
-        int s8 = board[2] + board[4] + board[6];
-        int[] solutions = { s1, s2, s3, s4, s5, s6, s7, s8 };
+        SolutionLine[] solutions = solutionLines(board);
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (solutions[i] == -3 || solutions[i] == 3)
+            if (solutions[i].hasWinner())
             {
                 return true;
             }
@@ -114,18 +106,11 @@ public class GameController : MonoBehaviour
     void gameOverScreen()
     {
         int solutionNumber = -1;
-        int s1 = board[0] + board[1] + board[2];
-        int s2 = board[3] + board[4] + board[5];
-        int s3 = board[6] + board[7] + board[8];
-        int s4 = board[0] + board[3] + board[6];
-        int s5 = board[1] + board[4] + board[7];
-        int s6 = board[2] + board[5] + board[8];
-        int s7 = board[0] + board[4] + board[8];
-        int s8 = board[2] + board[4] + board[6];
-        int[] solutions = { s1, s2, s3, s4, s5, s6, s7, s8 };
+
+        SolutionLine[] solutions = solutionLines(board);
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (solutions[i] == -3 || solutions[i] == 3)
+            if (solutions[i].hasWinner())
             {
                 solutionNumber = i;
             }
@@ -216,9 +201,13 @@ public class GameController : MonoBehaviour
             {
                 aiMove = AI.Easy(board);
             }
+            if (PlayerPrefs.GetInt("ai") == 2)
+            {
+                aiMove = AI.Medium(board, whoseTurn);
+            }
             else
             {
-                aiMove = AI.Impossible(board, whoseTurn);
+                aiMove = AI.Hard(board, whoseTurn);
             }
             TicTacToeButton(aiMove);
         }
@@ -227,5 +216,15 @@ public class GameController : MonoBehaviour
     public void mainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public static SolutionLine[] solutionLines(int[] board)
+    {
+        SolutionLine[] solutions = new SolutionLine[8];
+        for (int i = 1; i < 9; i++)
+        {
+            solutions[i - 1] = new SolutionLine(board, i);
+        }
+        return solutions;
     }
 }
