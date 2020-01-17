@@ -56,8 +56,6 @@ If I pick up this project again, here's a list of some of the things I'd improve
 - AI
   - Allow Player X to be an AI (functionality added already)
   - AI vs AI
-  - Add a medium difficulty
-  - Player is allowed to move for the AI while AI is still calculating move
 
 ## Credit
 ### Basic Functionality - [InfoGamer](https://www.youtube.com/channel/UCyoayn_uVt2I55ZCUuBVRcQ)
