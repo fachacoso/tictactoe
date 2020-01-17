@@ -6,10 +6,23 @@ This project was created in Unity and scripts were created in C#.
 A link to a playthrough can be viewed [here!](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
 
 ## Table of contents
+* [How to play](#how-to-play)
+  * [Mac](*mac)
+  * [Windows](*windows)
 * [Gameplay](#gameplay)
 * [Features](#features)
 * [Credit](#credit)
 * [Afterthoughts](#afterthoughts)
+
+## How to play
+Download the repository as a .zip file by going to "Clone or download" near the top right of the page.
+Once unzipped, go to the Builds folder and there will be both a Mac or a Windows version of the application.
+
+### Mac
+As mentioned before, you must download the repository.  Once you unzip it, just navigate to the "Builds" folder and double-click "Mac-FrancosTicTacToe" and you'll be ready to go!
+
+### Windows
+Still need to figure out how to build :' (
 
 ## Gameplay
 [Youtube Link of Gameplay](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
