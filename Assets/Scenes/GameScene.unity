@@ -2824,7 +2824,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1707810674}
-        m_MethodName: restart
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3790,7 +3790,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1707810674}
-        m_MethodName: rematch
+        m_MethodName: Rematch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3925,7 +3925,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1707810674}
-        m_MethodName: setFirst
+        m_MethodName: SetFirst
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4474,7 +4474,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1707810674}
-        m_MethodName: setFirst
+        m_MethodName: SetFirst
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5345,7 +5345,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1707810674}
-        m_MethodName: mainMenu
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6631,8 +6631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de3c051a5eb4831bafb32699453a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whoseTurn: 0
-  turnCount: 0
   turnIcons:
   - {fileID: 254385902}
   - {fileID: 208382070}
@@ -6649,7 +6647,6 @@ MonoBehaviour:
   - {fileID: 1010773040}
   - {fileID: 2048162217}
   - {fileID: 616222285}
-  board: 000000000000000000000000000000000000000000000000000000000000000000000000
   winningLines:
   - {fileID: 1213770941}
   - {fileID: 1351868530}
@@ -6663,11 +6660,14 @@ MonoBehaviour:
   winningPannel: {fileID: 231610120}
   xButton: {fileID: 1179175171}
   oButton: {fileID: 1009101412}
-  xScore: 0
-  oScore: 0
   xScoreText: {fileID: 1847238047}
   oScoreText: {fileID: 1681421229}
-  isAI: 0001
+  whoseTurn: 0
+  turnCount: 0
+  board: 000000000000000000000000000000000000000000000000000000000000000000000000
+  xScore: 0
+  oScore: 0
+  isAI: 1
 --- !u!4 &1707810675
 Transform:
   m_ObjectHideFlags: 0

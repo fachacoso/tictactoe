@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/* Used to control Menu. */
 public class MenuController : MonoBehaviour
 {
 
-    public void play(int who)
+    // Goes to game scene
+    public void Play(int who)
     {
         PlayerPrefs.SetInt("ai", who);
         SceneManager.LoadScene(1);
     }
 
-    public void quit()
+    // Quits game and resets all PlayerPrefs
+    public void Quit()
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();

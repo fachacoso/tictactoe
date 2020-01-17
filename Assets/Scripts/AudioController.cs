@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
+/* Controls all audio functions besides the background music. */
 public class AudioController : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    public Slider[] volumes;
-    public AudioSource click;
+    public AudioMixer audioMixer; // audio mixer
+    public Slider[] volumes; // volume sliders, [0] = master, [1] = background, [2] = SFX
+    public AudioSource click; // audio for click sfx
 
+    // Creates volume sliders and imports values when switching scenes
     public void Start()
     {
         if (PlayerPrefs.HasKey("master"))
@@ -35,6 +35,14 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    // Plays click audio
+    public void clickAudio()
+    {
+        click.Play();
+    }
+
+    /* Volume Slider Functions */
+
     public void setMasterVolume(float volume)
     {
         audioMixer.SetFloat("master", volume);
@@ -53,8 +61,4 @@ public class AudioController : MonoBehaviour
         PlayerPrefs.SetFloat("sfx", volume);
     }
 
-    public void clickAudio()
-    {
-        click.Play();
-    }
 }

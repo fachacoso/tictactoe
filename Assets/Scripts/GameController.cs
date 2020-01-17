@@ -1,25 +1,35 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/* Used to control the game. */
 public class GameController : MonoBehaviour
 {
-    public int whoseTurn; // 0 = X, 1 = O
-    public int turnCount; // num of turns
+
+    /* Variables */
+
+
+    //Unity Objects
     public GameObject[] turnIcons; //display whose turn it is
     public Sprite[] playerIcons;  // 0 = X icon, 1 = O icon
     public Button[] tictactoeSpaces; // playable space for game
+    public GameObject[] winningLines; // all win condition lines
+    public Text winningText; // text displayed when game is over
+    public GameObject winningPannel; // panel used to prevent board to be interactable
+    public Button xButton, oButton; // used to switch turns
+    public Text xScoreText, oScoreText; // scores for each player displayed
+
+    // Controller Variables
+    public int whoseTurn; // 0 = X, 1 = O
+    public int turnCount; // num of turns
     public int[] board;// place piece for each space
-    public GameObject[] winningLines;
-    public Text winningText;
-    public GameObject winningPannel;
-    public Button xButton, oButton;
-    public int xScore, oScore;
-    public Text xScoreText, oScoreText;
-    public Boolean[] isAI;
+    public int xScore, oScore; // scores for each player
+    public Boolean isAI; // 0 = none, 1 = easy, 2 = medium, 3 = hard
+
+
+
+    /* Setup Functions */
 
 
     // Start is called before the first frame update
@@ -27,13 +37,14 @@ public class GameController : MonoBehaviour
     {
         GameSetup();
         if (PlayerPrefs.GetInt("ai") != 0)
-            InvokeRepeating("checkAI", 0, 1);
+            InvokeRepeating("CheckAI", 0, 1);
     }
 
+    // Sets the board
     void GameSetup()
     {
         whoseTurn = PlayerPrefs.GetInt("whoStarts", 0);
-        setCurrent(whoseTurn);
+        SetCurrent(whoseTurn);
         turnCount = 0;
         for (int i = 0; i < tictactoeSpaces.Length; i++)
         {
@@ -46,6 +57,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+
+
+    /* Buttons */
+
+
+    // Play the game, used to place icon on a specific square
     public void TicTacToeButton(int spaceNumber)
     {
         xButton.interactable = false;
@@ -57,22 +74,22 @@ public class GameController : MonoBehaviour
             case 0:
                 tictactoeSpaces[spaceNumber].image.sprite = playerIcons[0];
                 board[spaceNumber] = -1;
-                if (gameOver())
+                if (GameOver())
                 {
-                    gameOverScreen();
+                    GameOverScreen();
                     return;
                 }
-                setCurrent(1);
+                SetCurrent(1);
                 break;
             case 1:
                 tictactoeSpaces[spaceNumber].image.sprite = playerIcons[1];
                 board[spaceNumber] = 1;
-                if (gameOver())
+                if (GameOver())
                 {
-                    gameOverScreen();
+                    GameOverScreen();
                     return;
                 }
-                setCurrent(0);
+                SetCurrent(0);
                 break;
             default:
                 Console.WriteLine("Default case");
@@ -81,19 +98,93 @@ public class GameController : MonoBehaviour
         }
 
         turnCount++;
-        if (gameOver())
+        if (GameOver())
         {
-            gameOverScreen();
+            GameOverScreen();
             return;
         }
     }
 
-    Boolean gameOver()
+    // Used to set whose turn goes first
+    public void SetFirst(int player)
     {
-        SolutionLine[] solutions = solutionLines(board);
+        SetCurrent(player);
+        if (player == 0)
+        {
+            PlayerPrefs.SetInt("whoStarts", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("whoStarts", 1);
+        }
+
+    }
+
+    // Restarts the board
+    public void Rematch()
+    {
+        GameSetup();
+        winningPannel.SetActive(false);
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
+        }
+        for (int i = 0; i < winningLines.Length; i++)
+        {
+            winningLines[i].SetActive(false);
+        }
+    }
+
+    // Restarts the board and scores
+    public void Restart()
+    {
+        Rematch();
+        xScore = 0;
+        xScoreText.text = xScore.ToString();
+        oScore = 0;
+        oScoreText.text = oScore.ToString();
+    }
+
+    // Goes to menu
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+
+    /* Helper functions */
+
+
+    // Checks if there is an AI, if so, AI makes a move
+    void CheckAI()
+    {
+        if (!GameOver() && isAI && whoseTurn == 1)
+        {
+            int aiMove;
+            if (PlayerPrefs.GetInt("ai") == 1)
+            {
+                aiMove = AI.Easy(board);
+            }
+            if (PlayerPrefs.GetInt("ai") == 2)
+            {
+                aiMove = AI.Medium(board, whoseTurn);
+            }
+            else
+            {
+                aiMove = AI.Hard(board, whoseTurn);
+            }
+            TicTacToeButton(aiMove);
+        }
+    }
+
+    // Checks if someone has won or the game is tied
+    Boolean GameOver()
+    {
+        SolutionLine[] solutions = SolutionLines(board);
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (solutions[i].hasWinner())
+            if (solutions[i].HasWinner())
             {
                 return true;
             }
@@ -103,14 +194,15 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    void gameOverScreen()
+    // If gameOver true, display a game over screen
+    void GameOverScreen()
     {
         int solutionNumber = -1;
 
-        SolutionLine[] solutions = solutionLines(board);
+        SolutionLine[] solutions = SolutionLines(board);
         for (int i = 0; i < solutions.Length; i++)
         {
-            if (solutions[i].hasWinner())
+            if (solutions[i].HasWinner())
             {
                 solutionNumber = i;
             }
@@ -138,30 +230,9 @@ public class GameController : MonoBehaviour
         oButton.interactable = true;
     }
 
-    public void rematch()
-    {
-        GameSetup();
-        winningPannel.SetActive(false);
-        for (int i = 0; i < winningLines.Length; i++)
-        {
-            winningLines[i].SetActive(false);
-        }
-        for (int i = 0; i < winningLines.Length; i++)
-        {
-            winningLines[i].SetActive(false);
-        }
-    }
 
-    public void restart()
-    {
-        rematch();
-        xScore = 0;
-        xScoreText.text = xScore.ToString();
-        oScore = 0;
-        oScoreText.text = oScore.ToString();
-    }
-
-    public void setCurrent(int player)
+    // Used to set whose turn it is
+    public void SetCurrent(int player)
     {
         if (player == 0)
         {
@@ -178,47 +249,9 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void setFirst(int player)
-    {
-        setCurrent(player);
-        if (player == 0)
-        {
-            PlayerPrefs.SetInt("whoStarts", 0);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("whoStarts", 1);
-        }
-
-    }
-
-    void checkAI()
-    {
-        if (!gameOver() && isAI[whoseTurn])
-        {
-            int aiMove;
-            if (PlayerPrefs.GetInt("ai") == 1)
-            {
-                aiMove = AI.Easy(board);
-            }
-            if (PlayerPrefs.GetInt("ai") == 2)
-            {
-                aiMove = AI.Medium(board, whoseTurn);
-            }
-            else
-            {
-                aiMove = AI.Hard(board, whoseTurn);
-            }
-            TicTacToeButton(aiMove);
-        }
-    }
-
-    public void mainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public static SolutionLine[] solutionLines(int[] board)
+    // Helper function, used to represent each possible
+    // line that can be a solution for the tictactoe board
+    public static SolutionLine[] SolutionLines(int[] board)
     {
         SolutionLine[] solutions = new SolutionLine[8];
         for (int i = 1; i < 9; i++)

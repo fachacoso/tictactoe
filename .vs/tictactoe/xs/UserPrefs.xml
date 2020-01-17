@@ -1,10 +1,8 @@
 ﻿<Properties StartupConfiguration="{119DDC31-54D8-B282-0ABE-F2051576B58D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SolutionLine">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
     <Files>
-      <File FileName="Assets/Scripts/MenuController.cs" Line="12" Column="37" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="78" Column="20" />
-      <File FileName="Assets/Scripts/AI.cs" Line="22" Column="65" />
-      <File FileName="Assets/Scripts/SolutionLine" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SolutionLine.cs" Line="92" Column="17" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="40" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,22 +10,17 @@
           <Node name="tictactoe" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="SolutionLine" selected="True" />
+                <Node name="GameController.cs" selected="True" />
               </Node>
             </Node>
           </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="tictactoe" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="7366d7dd-8a98-45c3-8b0f-eba08507c179" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9c88ae3c-9004-43ec-b447-bdd47abd0667" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
