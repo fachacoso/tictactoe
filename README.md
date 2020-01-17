@@ -14,14 +14,14 @@ A link to a playthrough can be viewed [here!](https://www.youtube.com/watch?v=vp
 ## Gameplay
 [Youtube Link of Gameplay](https://www.youtube.com/watch?v=vpDYokSOYrQ&feature=youtu.be)
 <p float="left">
-  <img src="README-images/mainMenu.png" height="150" />
-  <img src="README-images/opponent.png" height="150" /> 
-  <img src="README-images/options.png" height="150" />
+  <img src="Images/mainMenu.png" height="150" />
+  <img src="Images/opponent.png" height="150" /> 
+  <img src="Images/options.png" height="150" />
 </p>
 <p float="left">
-  <img src="README-images/game.png" height="150" />
-  <img src="README-images/tie.png" height="150" /> 
-  <img src="README-images/winner.png" height="150" />
+  <img src="Images/game.png" height="150" />
+  <img src="Images/tie.png" height="150" /> 
+  <img src="Images/winner.png" height="150" />
 </p>
 
 ## Features
@@ -47,8 +47,6 @@ Here's a list of some of the things I created after making the basic game functi
 
 ### Future Improvements
 If I pick up this project again, here's a list of some of the things I'd improve on.
-- Adding pictures to the README.md
-- Documentation (period)
 - Better UI (could look prettier)
   - Scene transitions
   - Another intro screen
